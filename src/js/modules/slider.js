@@ -1,3 +1,5 @@
+import { setTimeout } from 'core-js';
+
 export default class Slider {
     constructor(page, btns) {
         this.page = document.querySelector(page);
@@ -15,9 +17,26 @@ export default class Slider {
             this.slideIndex = this.slides.length;
         }
 
-        this.slides.forEach((slide) => {
-            slide.style.display = 'none';
-        });
+        try {
+            this.hanson.style.opacity = '0';
+
+            if (n === 3) {
+                this.hanson.classList.add('animated');
+
+                setTimeout(() => {
+                    this.hanson.style.opacity = '1';
+                    this.hanson.classList.add('slideInUp');
+                }, 3000);
+            } else {
+                this.hanson.classList.remove('slideInUp');
+            }
+        } catch (error) {}
+
+        try {
+            for (let i = 0; i < this.slides.length; i++) {
+                this.slides[i].style.display = 'none';
+            }
+        } catch (error) {}
 
         this.slides[this.slideIndex - 1].style.display = 'block';
     }
@@ -27,6 +46,10 @@ export default class Slider {
     }
 
     render() {
+        try {
+            this.hanson = document.querySelector('.hanson');
+        } catch (error) {}
+
         this.btns.forEach((item) => {
             item.addEventListener('click', () => {
                 this.plusSlides(1);
